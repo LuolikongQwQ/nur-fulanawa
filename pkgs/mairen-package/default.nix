@@ -6,9 +6,9 @@ stdenv.mkDerivation rec {
   buildPhase = ''
     cat <<EOF >> mairen
     #!/usr/bin/env bash
-
+    
     if [ -z "$1" ]; then
-       echo "$USER 透了麦仁！"
+       echo "$(id -un) 透了麦仁！"
     else
        echo "$1 透了麦仁！"
     fi
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     #!/usr/bin/env bash
 
     if [ -z "$1" ]; then
-       echo "$USER 被卖了！"
+       echo "$(id -un) 被卖了！"
     else
        echo "$1 被卖了！"
     fi
