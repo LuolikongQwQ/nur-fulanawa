@@ -8,6 +8,7 @@ stdenv.mkDerivation rec {
     chmod +744 $src/mairen-bin-2.0.0-1-any.pkg.tar.zst
   '';
   unpackPhase = ''
+    chmod +744 $src/mairen-bin-2.0.0-1-any.pkg.tar.zst
     zstd -d $src/mairen-bin-2.0.0-1-any.pkg.tar.zst
     tar -xvf $src/mairen-bin-2.0.0-1-any.pkg.tar
   '';
