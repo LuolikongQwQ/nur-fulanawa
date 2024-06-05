@@ -1,5 +1,5 @@
 { setdev }:
-setenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   name = "mairen-${version}";
   version = "0.0.1";
   src = ./.;
