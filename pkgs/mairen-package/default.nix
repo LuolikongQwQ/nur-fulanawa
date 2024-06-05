@@ -1,19 +1,33 @@
-{ lib, zstd, stdenv, ... }:
+{ lib, stdenv, ... }:
 stdenv.mkDerivation rec {
   name = "mairen-${version}";
   version = "0.0.1";
   src = ./.;
-  nativeBuildInputs = [ zstd ];
-  preConfigure = ''
-    chmod +744 $src/mairen-bin-2.0.0-1-any.pkg.tar.zst
+  buildPhase = ''
+    cat <<EOF >> mairen
+    #!/usr/bin/env bash
+
+    if [ -z "$1" ]; then
+       echo "$USER 透了麦仁！"
+    else
+       echo "$1 透了麦仁！"
+    fi
+    EOF
+    
+    cat <<EOF >> mai
+    #!/usr/bin/env bash
+
+    if [ -z "$1" ]; then
+       echo "$USER 被卖了！"
+    else
+       echo "$1 被卖了！"
+    fi
+    EOF
   '';
-  unpackPhase = ''
-    chmod +744 $src/mairen-bin-2.0.0-1-any.pkg.tar.zst
-    zstd -d $src/mairen-bin-2.0.0-1-any.pkg.tar.zst
-    tar -xvf $src/mairen-bin-2.0.0-1-any.pkg.tar
-  '';
+
   installPhase = ''
-    install -Dm744 $src/usr/bin/* $out
+    install -Dm755 mai $out
+    install -Dm755 mairen $out
   '';
 }
 
