@@ -4,7 +4,8 @@ stdenv.mkDerivation rec {
   version = "0.0.1";
   src = ./.;
   buildPhase = ''
-    cat <<EOF >> mairen
+    mkdir -p $src/usr/bin
+    cat <<EOF >> $src/usr/bin/mairen
     #!/usr/bin/env bash
 
     if [ -z "$1" ]; then
@@ -14,7 +15,7 @@ stdenv.mkDerivation rec {
     fi
     EOF
     
-    cat <<EOF >> mai
+    cat <<EOF >> $src/usr/bin/mai
     #!/usr/bin/env bash
 
     if [ -z "$1" ]; then
@@ -26,8 +27,9 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    install -Dm755 mai $out
-    install -Dm755 mairen $out
+    mkdir -p $out/usr/bin
+    install -Dm755 $src/usr/bin/mai $out/usr/bin
+    install -Dm755 $src/usr/bin/mairen $out/usr/bin
   '';
 }
 
